@@ -4,15 +4,12 @@ require 'config/database.php';
 $db = new Database();
 $con = $db->conectar();
 
-//validar si existe la variable SESSION, si existe la recibe '?' y si no existe 'null'// 
 $productos = isset($_SESSION['ostoskori']['productos']) ? $_SESSION['ostoskori']['productos'] : null; 
 
 //print_r($_SESSION);
 
 $lista_ostoskori = array();
-//cuando productos es diferente a null, es decir tiene informacion entonces pasa lo siguiente://
 if($productos != null) {
-    //la clave sera el id del producto y cantidad sera la cantidad que vamos a tener//
     foreach($productos as $clave => $määrä) {
         
         $sql = $con->prepare("SELECT id, nimi, hinta, alennus, $määrä AS määrä FROM productos WHERE id=? AND omaisuus=1");
@@ -62,7 +59,6 @@ if($productos != null) {
                 <a href="#" class="nav-link">Ota yhteyttä</a>
             </li>
         </ul>
-        //conteo de productos en el carrito, para que aparezca en la pagina principal, copia en kuvaus//
           <a href="ostoskori.php" class="btn btn-primary"> Ostoskori <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span>
           </a>
       </div>
